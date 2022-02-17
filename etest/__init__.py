@@ -1,6 +1,5 @@
-from os.path import join, normpath
+from os.path import join
 
 root = __path__[0]
-parser_file = 'tests/test_parsers.py'
 args_file = join(root, 'data.txt')
-parser_test = join(root, parser_file)
+parser_test = join(root, 'tests/test_parsers.py')

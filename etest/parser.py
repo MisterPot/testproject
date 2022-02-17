@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 import sys
 import etest
-import os
+from subprocess import Popen
 
 consts = {
     'all': 1,
@@ -31,7 +31,8 @@ def parse():
         with open(etest.args_file, 'w') as file:
             file.write('\n'.join([id_ for id_ in ids if id_]))
 
-        os.system('sudo python2 ' + etest.parser_test)
+        proc = Popen(['sudo', 'python2', '-m', 'pytest', etest.parser_test])
+        proc.wait()
         sys.exit(0)
 
     print('No ids to parse, use "etest -help" for more information')
