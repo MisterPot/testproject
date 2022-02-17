@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import sys
 import etest
+import os
 
 consts = {
     'all': 1,
@@ -30,6 +31,7 @@ def parse():
         with open(etest.args_file, 'w') as file:
             file.write('\n'.join([id_ for id_ in ids if id_]))
 
+        os.system('sudo python2 ' + etest.parser_test)
         sys.exit(0)
 
     print('No ids to parse, use "etest -help" for more information')
