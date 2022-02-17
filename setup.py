@@ -4,7 +4,7 @@ setup(
     name='etest',
     version='1.0',
     packages=find_packages(),
-    install_requites=[
+    install_requires=[
         'pytest==4.6.11'
     ],
     include_package_data=True,
