@@ -14,7 +14,8 @@ def active_vendors():
     query = db_sql_get_recordset_ex('SELECT "ExternalShopsIds" FROM prod."Suppliers" '
                                     'WHERE 32 = any("ShopIds") or 71 = any("ShopIds");', ())
     result = []
-    for ids in filter( lambda item: item['ExternalShopsIds'] is not None, query):
+    for ids in map(lambda item: item['ExternalShopsIds'],
+                   filter(lambda item: item['ExternalShopsIds'] is not None, query)):
         result.extend(ids)
 
     return result
