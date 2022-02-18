@@ -67,7 +67,7 @@ def parse():
             ids = func()
 
         with open(etest.args_file, 'w') as file:
-            file.write('\n'.join([id_ for id_ in ids if id_]))
+            file.write('\n'.join([str(id_) for id_ in ids if id_]))
 
         proc = Popen(['sudo', 'python2', '-m', 'pytest', etest.parser_test])
         proc.wait()
