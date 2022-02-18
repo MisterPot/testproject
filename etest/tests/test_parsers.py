@@ -10,6 +10,6 @@ def test_parser(external_parser_data):
         run_path = ENV.SHOP3(path)
     proc = Popen(['/usr/bin/python2.7', run_path], stdout=PIPE, stderr=PIPE)
     proc.wait()
-    if proc.returncode == 1:
-        print(proc.stdout)
+    if proc.returncode >= 1:
+        print(proc.stderr.read())
     assert proc.returncode == 0
