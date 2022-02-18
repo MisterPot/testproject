@@ -37,6 +37,11 @@ def test_parser(external_parser_data):
         print(proc.stderr.read())
     else:
         out = proc.stdout.read()
-        analyze_output(out)
+        try:
+            analyze_output(out)
+        except Exception as e:
+            print(e.message)
+            assert 1 == 0
+
         print(out)
     assert proc.returncode == 0
