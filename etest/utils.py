@@ -1,4 +1,21 @@
-import re
+from re import compile
+from csv import DictWriter
+
+fields = [
+    '', 'ParserId', '',
+    '', 'Path', '',
+    '', 'WorkStatus', '',
+    '', 'Errors (if bad status)', ''
+]
+
+clear_fields = map(lambda item: item, fields)
+
+
+def write_csv(filename, rows):
+    with open(filename, 'w') as f:
+        writer = DictWriter(f, fieldnames=fields, delimiter=';')
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def analyze_output(stdout):
@@ -7,7 +24,7 @@ def analyze_output(stdout):
     if len(analyze_rows) < 8:
         raise ValueError('Invalid parser output')
 
-    pattern = re.compile(r'\d+')
+    pattern = compile(r'\d+')
     validProductCount = int(pattern.findall(analyze_rows[2])[0]),
     allProductCount = int(pattern.findall(analyze_rows[6])[0])
 

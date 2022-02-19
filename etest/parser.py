@@ -37,10 +37,16 @@ def parse():
     parser.add_argument('--ids', type=str, nargs='*', help='Input the ids in view "--ids 12 13 14 15" or'
                         ' may use file "--ids file:~/ids/ids.txt". File must been write in view'
                         ' (d=delimiter) "12d13d14d15" (d in [" ", ",", ";", "\\n"])')
-    parser.add_argument('--consts', type=bool, default=False, help="Print available constants")
+    parser.add_argument('--consts', type=bool, default=False, nargs='?', help="Print available constants")
+    parser.add_argument('--csv', type=str, default=False, nargs='?', help='Save report of testing to csv file '
+                                                                          'as "--csv report.csv"')
     args = {key: value for key, value in parser.parse_args().__dict__.items()}
 
     ids = args.get('ids')
+
+    with open(etest.csv_file, 'w') as f:
+        csv = args.get('csv')
+        f.write(csv if csv else '')
 
     if args.get('consts'):
         print('\n'.join(['{}: \t\t {}'.format(key, value) for key, value in const_help.items()]))
