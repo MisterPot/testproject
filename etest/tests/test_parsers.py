@@ -1,7 +1,7 @@
 from subprocess import Popen, PIPE
 from eshopcron.env import ENV
 from etest.config import parser_timeout
-from etest.utils import analyze_output, write_csv
+from etest.utils import analyze_output, create_csv, write_row
 from threading import Timer
 from colorama import init, Fore
 import etest
@@ -10,18 +10,18 @@ from os.path import exists
 init()
 
 reporting = False
-report_data = []
 
 with open(etest.csv_file) as f:
     filename = f.read()
     if filename:
         reporting = True
+        create_csv(filename)
 
 
 def write_up_report(report, status, error=None):
     report['WorkStatus'] = str(status)
     report['Errors (if bad status)'] = str(error)
-    report_data.append(report)
+    write_row(filename, report)
 
 
 def colored(text, color='YELLOW'):
@@ -82,6 +82,3 @@ def test_parser(external_parser_data):
         print(colored(out, color='green'))
     assert proc.returncode == 0
 
-
-if reporting:
-    write_csv(filename, report_data)

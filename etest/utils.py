@@ -11,11 +11,16 @@ fields = [
 clear_fields = map(lambda item: item, fields)
 
 
-def write_csv(filename, rows):
+def create_csv(filename):
     with open(filename, 'w') as f:
         writer = DictWriter(f, fieldnames=fields, delimiter=';')
         writer.writeheader()
-        writer.writerows(rows)
+
+
+def write_row(filename, row):
+    with open(filename, 'a') as f:
+        writer = DictWriter(f, fieldnames=fields, delimiter=';')
+        writer.writerow(row)
 
 
 def analyze_output(stdout):
